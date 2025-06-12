@@ -47,6 +47,28 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/registrations", async (req, res) => {
+      const email = req.query.applicantEmail;
+      const query = {
+        applicant: email,
+      };
+      const result = await registrationCollaction.find(query).toArray();
+
+      for (const registration of result) {
+        const marathonId = registration.marathonId;
+        const marathonQuery = { _id: new ObjectId(marathonId) };
+        const marathon = await marathonsCollection.findOne(marathonQuery);
+        registration.location = marathon.location;
+        registration.title = marathon.title;
+        registration.photo = marathon.photo;
+        registration.distance = marathon.distance;
+        registration.photo = marathon.photo;
+        registration.marathonDate	 = marathon.marathonDate	;
+      }
+
+      res.send(result);
+    });
+
     app.get("/marathons", async (req, res) => {
       const cursor = marathonsCollection.find();
       const result = await cursor.toArray();
