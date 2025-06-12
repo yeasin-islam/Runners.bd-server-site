@@ -25,6 +25,16 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+     const marathonsCollection = client.db("marathonsDB").collection("marathons");
+
+     app.post("/marathons", async (req, res) => {
+      const marathon = req.body;
+      // console.log(marathon);
+      const result = await marathonsCollection.insertOne(marathon);
+      res.send(result);
+    });
+
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
@@ -39,9 +49,6 @@ run().catch(console.dir);
 
 app.get("", (req, res) => {
   res.send("This is Marathon Management System web serber");
-});
-app.get("/marathons", (req, res) => {
-  res.send("Marathons Page");
 });
 
 app.listen(port, (req, res) => {
