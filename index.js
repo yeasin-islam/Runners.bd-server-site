@@ -100,6 +100,20 @@ async function run() {
       }
     });
 
+    app.get("/marathons-section-posts", async (req, res) => {
+      try {
+        const marathons = await marathonsCollection
+          .find({ distance: "25K" })
+          .limit(6)
+          .toArray();
+
+        res.send(marathons);
+      } catch (err) {
+        console.error("Failed to fetch marathons section posts", err);
+        res.status(500).send({ error: "Internal Server Error" });
+      }
+    });
+
     app.delete("/marathons/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
