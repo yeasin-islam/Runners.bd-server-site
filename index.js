@@ -25,9 +25,11 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
-     const marathonsCollection = client.db("marathonsDB").collection("marathons");
+    const marathonsCollection = client
+      .db("marathonsDB")
+      .collection("marathons");
 
-     app.post("/marathons", async (req, res) => {
+    app.post("/marathons", async (req, res) => {
       const marathon = req.body;
       // console.log(marathon);
       const result = await marathonsCollection.insertOne(marathon);
@@ -38,29 +40,30 @@ async function run() {
       const cursor = marathonsCollection.find();
       const result = await cursor.toArray();
       res.send(result);
-    })
+    });
 
     app.get("/marathons/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await marathonsCollection.findOne(query);
       res.send(result);
-    })
-
+    });
+    
     app.get("/my-marathons", async (req, res) => {
-      const userEmail = req.query.email;
-
-      if (!userEmail) {
-        return res.status(400).json({ error: "Email is required" });
+      const { email } = req.query;
+      if (!email) {
+        return res.status(400).json({ message: "Email is required" });
       }
 
       try {
-        const myMarathons = await marathonsCollection
-          .find({ email: userEmail })
+        const marathons = await marathonsCollection
+          .find({ creatBy: email })
           .toArray();
-        res.send(myMarathons);
+
+        res.send(marathons);
       } catch (error) {
-        res.status(500).json({ error: "Server Error" });
+        console.error(error);
+        res.status(500).json({ message: "Failed to fetch marathons" });
       }
     });
 
@@ -68,6 +71,22 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await marathonsCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    app.put("/marathons/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      options = { upsert: true };
+      const updatedMarathon = req.body;
+      const updatedDoc = {
+        $set: updatedMarathon,
+      };
+      const result = await marathonsCollection.updateOne(
+        filter,
+        updatedDoc,
+        options
+      );
       res.send(result);
     });
 
@@ -88,5 +107,7 @@ app.get("", (req, res) => {
 });
 
 app.listen(port, (req, res) => {
-  console.log(`This is Marathon Management System web server running on port ${port}`);
+  console.log(
+    `This is Marathon Management System web server running on port ${port}`
+  );
 });
