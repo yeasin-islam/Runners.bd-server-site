@@ -29,10 +29,21 @@ async function run() {
       .db("marathonsDB")
       .collection("marathons");
 
+    const registrationCollaction = client
+      .db("marathonsDB")
+      .collection("registrations");
+
     app.post("/marathons", async (req, res) => {
       const marathon = req.body;
       // console.log(marathon);
       const result = await marathonsCollection.insertOne(marathon);
+      res.send(result);
+    });
+
+    app.post("/registrations", async (req, res) => {
+      const registration = req.body;
+      // console.log(registration);
+      const result = await registrationCollaction.insertOne(registration);
       res.send(result);
     });
 
@@ -48,7 +59,7 @@ async function run() {
       const result = await marathonsCollection.findOne(query);
       res.send(result);
     });
-    
+
     app.get("/my-marathons", async (req, res) => {
       const { email } = req.query;
       if (!email) {
