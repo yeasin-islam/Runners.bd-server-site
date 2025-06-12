@@ -47,6 +47,23 @@ async function run() {
       res.send(result);
     })
 
+    app.get("/my-marathons", async (req, res) => {
+      const userEmail = req.query.email;
+
+      if (!userEmail) {
+        return res.status(400).json({ error: "Email is required" });
+      }
+
+      try {
+        const myMarathons = await marathonsCollection
+          .find({ email: userEmail })
+          .toArray();
+        res.send(myMarathons);
+      } catch (error) {
+        res.status(500).json({ error: "Server Error" });
+      }
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
