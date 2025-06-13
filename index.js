@@ -133,6 +133,35 @@ async function run() {
       const result = await marathonsCollection.deleteOne(query);
       res.send(result);
     });
+    app.delete("/applications/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await registrationCollaction.deleteOne(query);
+      res.send(result);
+    });
+
+    app.get("/applications/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await registrationCollaction.findOne(query);
+      res.send(result);
+    });
+
+    app.put("/applications/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      options = { upsert: true };
+      const updatedApplication = req.body;
+      const updatedDoc = {
+        $set: updatedApplication,
+      };
+      const result = await registrationCollaction.updateOne(
+        filter,
+        updatedDoc,
+        options
+      );
+      res.send(result);
+    });
 
     app.put("/marathons/:id", async (req, res) => {
       const id = req.params.id;
