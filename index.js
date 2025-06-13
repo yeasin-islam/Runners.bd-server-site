@@ -47,39 +47,39 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/registrations", async (req, res) => {
+    app.get("/my-applications", async (req, res) => {
       const email = req.query.applicantEmail;
-      const query = {
-        applicant: email,
-      };
-      const result = await registrationCollaction.find(query).toArray();
 
-      for (const registration of result) {
-        const marathonId = registration.marathonId;
-        const marathonQuery = { _id: new ObjectId(marathonId) };
-        const marathon = await marathonsCollection.findOne(marathonQuery);
-        registration.location = marathon.location;
-        registration.title = marathon.title;
-        registration.photo = marathon.photo;
-        registration.distance = marathon.distance;
-        registration.photo = marathon.photo;
-        registration.marathonDate	 = marathon.marathonDate	;
+      if (!email) {
+        return res
+          .status(400)
+          .send({ error: "applicantEmail query param is required" });
       }
 
-      res.send(result);
-    });
+      try {
+        const result = await registrationCollaction
+          .find({ applicantEmail: email })
+          .toArray();
 
-    app.get("/marathons", async (req, res) => {
-      const cursor = marathonsCollection.find();
-      const result = await cursor.toArray();
-      res.send(result);
-    });
+        for (const registration of result) {
+          const marathonId = registration.marathonId;
+          const marathonQuery = { _id: new ObjectId(marathonId) };
+          const marathon = await marathonsCollection.findOne(marathonQuery);
 
-    app.get("/marathons/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
-      const result = await marathonsCollection.findOne(query);
-      res.send(result);
+          if (marathon) {
+            registration.location = marathon.location;
+            registration.title = marathon.title;
+            registration.photo = marathon.photo;
+            registration.distance = marathon.distance;
+            registration.marathonDate = marathon.marathonDate;
+          }
+        }
+
+        res.send(result);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Failed to fetch result" });
+      }
     });
 
     app.get("/my-marathons", async (req, res) => {
@@ -98,6 +98,19 @@ async function run() {
         console.error(error);
         res.status(500).json({ message: "Failed to fetch marathons" });
       }
+    });
+
+    app.get("/marathons", async (req, res) => {
+      const cursor = marathonsCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    app.get("/marathons/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await marathonsCollection.findOne(query);
+      res.send(result);
     });
 
     app.get("/marathons-section-posts", async (req, res) => {
