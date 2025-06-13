@@ -146,6 +146,12 @@ async function run() {
       const result = await registrationCollaction.findOne(query);
       res.send(result);
     });
+    app.get("/applications/marathon/:marathon_id", async (req, res) => {
+      const marathon_id = req.params.marathon_id;
+      const query = { marathonId: marathon_id };
+      const result = await registrationCollaction.find(query).toArray();
+      res.send(result);
+    });
 
     app.put("/applications/:id", async (req, res) => {
       const id = req.params.id;
