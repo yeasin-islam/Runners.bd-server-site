@@ -1,9 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const app = express();
+const port = process.env.PORT || 3000;
+
+const admin = require("firebase-admin");
+const serviceAccount = require("./firebase-admin-service-key.json");
+
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
-const port = process.env.PORT || 3000;
-const app = express();
 
 // meddlewair
 app.use(cors());
@@ -19,6 +23,29 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+const verifyFirebaseToken = async (req, res, next) => {
+  const authHeader = req.headers?.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).send({ message: "unauthorized access" });
+  }
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = await admin.auth().verifyIdToken(token);
+    console.log("Decoded token: ", decoded);
+    req.decoded = decoded;
+
+    next();
+  } catch (error) {
+    return res.status(401).send({ message: "unauthorized access" });
+  }
+};
 
 async function run() {
   try {
@@ -47,8 +74,14 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/my-applications", async (req, res) => {
+    app.get("/my-applications", verifyFirebaseToken, async (req, res) => {
       const email = req.query.applicantEmail;
+
+      if (email !== req.decoded.email) {
+        return res.status(403).message({ message: "forbidden access" });
+      }
+
+      // console.log("req header", req.headers);
 
       if (!email) {
         return res
@@ -82,8 +115,13 @@ async function run() {
       }
     });
 
-    app.get("/my-marathons", async (req, res) => {
+    app.get("/my-marathons", verifyFirebaseToken, async (req, res) => {
       const { email } = req.query;
+
+      if (email !== req.decoded.email) {
+        return res.status(403).message({ message: "forbidden access" });
+      }
+
       if (!email) {
         return res.status(400).json({ message: "Email is required" });
       }
