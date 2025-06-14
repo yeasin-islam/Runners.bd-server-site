@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "marathon-management-syst-f546e",
+  "private_key_id": "1ba81696d410c64b5d6e32a2e699f0d7cee11a27",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDlNFzzsul58LJ3\n1uPbRMWYS/NEANq5ARhzmRL4KeVBL7mr1WOVRHBtk/y6EETssyg3a91MvfZI56kE\n/iWVg3Ww7RHb3cja+mgCHoHFJ8s0+0Yz6X+kBhWUTanh0m37yiJ3CPMcUogdjb4d\n+ScH2xjD5w1oVJLgq/C3AltAgW07kG2tNPM0298vpGBKDRg9+FN8ZnqZ7V7yLB+p\nUN1we1Xlquqc+4KBazw+kNmRxrWT7go7JBhzQCksJI9yTgta0W0Urwg33UKHfKas\nrYfq0gRnZR28aglWsB3etOObOOqLkmbyxsAvXwZ1NIwZIKCAV0OmmHpEvpvI9epQ\n6wRtGhj9AgMBAAECggEAK88u5xuu2bJiglpuEfaaqAn4VOqu48asVEgRYqKrYaLM\nI+Z1Es5SiPdMyomaiv2RdcplsanrfbLd0Qj8yQ+n+qnNjI9fOU+8eo83MaZyBk3y\n9LAwR/sru71+d53fjM1tegAZa7PwtWlmydbaGXvMx4ENxH/J1Sy4JVrLc1BpvwT3\nAAN4VqO8k6T87pRhP5vDfqiK1K2NQSvTsnQroyEXmmlmNrkmtEEAvexoRr7/ebUO\n3tcmGDkacQAf3rPWaQ3LiswQsOncZmJt411Pvuf95bQvKk7PkCc+iwhviRjL5KoW\nJQ5AZLhYlBfO1BLehaLQxc7mW5UbB0MrKswi6Qs58QKBgQDywGfmcuIF6SnKInAS\n5Cy7+448Euuc0GkxO3Rks2wzFbC7t7MuwlTYH4ApMimswKm+QuXM/xEPk07v+uOG\nSWvBou6xrIBJEitjhHHBKvC94u3DyVwylkpWIx/f65ZBK/J+s8ZqVoSmG8fStSFU\nyuVvgeal3caTVFNAYGGr+j7o2QKBgQDxtq9uDfKhUnaxGV9y3wLxQ0Sr1rEd2Ny3\nBQN5IYLK52sILQScmEtfjiVLlj7JRfJNoIyWxpx74pQv9REWK6oPH1FbYMri/kw4\nGEyNeKc/4boxMuiwCPZA1bX3lj8LEmUVioRWPGfIJf+FvUVUjCp3NxrExL5JdQen\nMQnl7ZX6xQKBgQDf/Znhkm/sdFETKuOvCswcSOndlLfDYqstumaT5NsZ6BHDpKW5\np6cSJT7kxFygAsadwKy6k0Dy1kIoPaBj8Kt1aRpG550Xz6Qpl7Q/QZgSHqq11b81\nDmhZQt/OhluGlz6Smt+ij2Kmw0uGqYuv6ef7FCn3MsRgfZaz+DsnrSkPQQKBgHKR\nC2+XjtQl+PoSM6qHx6ZBIxBrz0F9Y4ggCThlyM+Rhqq2Y8QxbzBYeJbuHM5bp/Bh\nU6G3e75Ac8qTVsjyY0WNq4srQp76t3ezFL3NXUCrJgxhu+aMKOQsJ3a1sSX3TxA5\numYBdZNpZ0alonHjidE9viNbuXGp1bnKRY3E4dydAoGBAI5qI5qmXsjVTSNgPJ7R\nO8QQnvRJCpfUkNJXA5PtW0r3PrtKaoquiqAo6SGD2xozccEE7Tc7HWuVA4uyaVxy\nw6RBkp0c+H+RQfG0N66SQmac49IxIosVuP7bf35bdsF88SWarMh3+mU443j9hb0q\nq3i97gfVDWmhxN+w5bnDS8cv\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@marathon-management-syst-f546e.iam.gserviceaccount.com",
+  "client_id": "115432342072519892568",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40marathon-management-syst-f546e.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
