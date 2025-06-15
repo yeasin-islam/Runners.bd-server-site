@@ -144,7 +144,7 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/marathons/:id", async (req, res) => {
+    app.get("/marathons/:id",verifyFirebaseToken, async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await marathonsCollection.findOne(query);
@@ -184,7 +184,7 @@ async function run() {
       const result = await registrationCollaction.findOne(query);
       res.send(result);
     });
-    app.get("/applications/marathon/:marathon_id", async (req, res) => {
+    app.get("/applications/marathon/:marathon_id", verifyFirebaseToken, async (req, res) => {
       const marathon_id = req.params.marathon_id;
       const query = { marathonId: marathon_id };
       const result = await registrationCollaction.find(query).toArray();
