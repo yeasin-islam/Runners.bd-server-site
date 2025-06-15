@@ -138,7 +138,7 @@ async function run() {
       }
     });
 
-    app.get("/marathons", async (req, res) => {
+    app.get("/marathons",verifyFirebaseToken, async (req, res) => {
       const cursor = marathonsCollection.find();
       const result = await cursor.toArray();
       res.send(result);
