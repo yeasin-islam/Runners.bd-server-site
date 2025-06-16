@@ -59,11 +59,20 @@ async function run() {
     const registrationCollaction = client
       .db("marathonsDB")
       .collection("registrations");
+    const reviewCollaction = client
+      .db("marathonsDB")
+      .collection("reviews");
 
     app.post("/marathons", async (req, res) => {
       const marathon = req.body;
       // console.log(marathon);
       const result = await marathonsCollection.insertOne(marathon);
+      res.send(result);
+    });
+    app.post("/reviews", async (req, res) => {
+      const review = req.body;
+      // console.log(review);
+      const result = await reviewCollaction.insertOne(review);
       res.send(result);
     });
 
@@ -143,6 +152,11 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    app.get("/reviews", async (req, res) => {
+      const cursor = reviewCollaction.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     app.get("/marathons/:id",verifyFirebaseToken, async (req, res) => {
       const id = req.params.id;
@@ -154,7 +168,9 @@ async function run() {
     app.get("/marathons-section-posts", async (req, res) => {
       try {
         const marathons = await marathonsCollection
-          .find({ distance: "25K" })
+          .find({
+              distance: { $in: ["10K", "25K"] },
+          })
           .limit(6)
           .toArray();
 
