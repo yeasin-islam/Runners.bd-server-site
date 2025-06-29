@@ -1,6 +1,6 @@
 # 🏃‍♂️ Marathon Management System - Backend (Runners.bd API)
 
-This is the backend service for **Runners.bd**, a web-based Marathon Management System. It provides RESTful API endpoints for managing marathons, user registrations, and reviews — all secured with Firebase authentication and powered by Express and MongoDB.
+This is the backend service for **Runners.bd**, a web-based Marathon Management System. It provides RESTful API endpoints for managing marathons, user registrations, and reviews - all secured with Firebase authentication and powered by Express and MongoDB.
 
 ## 🔗 [Live Client Site](https://marathon-management-syst-f546e.web.app)
 ## 🚀 [Live API (Vercel)](https://batch11-assignment-11-serve-side.vercel.app)
